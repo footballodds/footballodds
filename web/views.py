@@ -8,7 +8,11 @@ def odds_list(request):
         event.name={
             time:{}
             info:{}
-            odd{}
+            full_win_alone{}
+            half_win_alone{}
+            full_let_ball{}
+            half_let_ball{}
+            full_big_small{}
         }
     }
     :param request:
@@ -16,5 +20,6 @@ def odds_list(request):
     '''
 
     all_event=models.Eventinfo.objects.all().values()
+
     print([models.Gameinfo.objects.filter(eventid=i['id']).values() for i in all_event])
     return HttpResponse('ok')

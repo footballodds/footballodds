@@ -11,17 +11,21 @@ from django.db import models
 
 
 class Bigsmall(models.Model):
-    companyid = models.ForeignKey('Companyodds',db_column='CompanyId')  # Field name made lowercase.
-    gameinfo = models.ForeignKey('Gameinfo', db_column='GameinfoId', blank=True, null=True, default='1')
-    handicap = models.FloatField(db_column='Handicap', blank=True, null=True)  # Field name made lowercase.
+    companyid = models.ForeignKey('Companyodds', db_column='CompanyId')  # Field name made lowercase.
+    gameinfo = models.ForeignKey('Gameinfo', db_column='GameinfoId', blank=True, null=True)
+    handicap = models.CharField(db_column='Handicap', max_length=11, blank=True, default='0')  # Field name made lowercase.
     big = models.FloatField(db_column='Big', blank=True, null=True)  # Field name made lowercase.
     small = models.FloatField(db_column='Small', blank=True, null=True)  # Field name made lowercase.
-    half_big=models.FloatField(db_column='half_big', blank=True, null=True)
-    half_small=models.FloatField(db_column='half_small', blank=True, null=True)
-    half_handicap=models.FloatField(db_column='half_handicap', blank=True, null=True)
+    half_big = models.FloatField(db_column='half_big', blank=True, null=True)
+    half_small = models.FloatField(db_column='half_small', blank=True, null=True)
+    half_handicap = models.CharField(db_column='Half_handicap',max_length=11, blank=True, default='0')
+
     class Meta:
-        verbose_name_plural='大小表'
-        verbose_name='大小表'
+        verbose_name_plural = '大小表'
+        verbose_name = '大小表'
+
+    def __str__(self):
+        return self.gameinfo.homename + '&' + self.gameinfo.visitname
 
 
 class Companyodds(models.Model):
@@ -51,6 +55,7 @@ class Eventinfo(models.Model):
     class Meta:
         verbose_name_plural = '联赛'
         verbose_name = '联赛'
+
     def __str__(self):
         return self.name
 
@@ -62,27 +67,33 @@ class Gameinfo(models.Model):
     gametime = models.DateTimeField(db_column='GameTime')  # Field name made lowercase.
     visitname = models.CharField(db_column='VisitName', max_length=100, blank=True,
                                  null=True)  # Field name made lowercase.
-    Companyodds=models.ManyToManyField(to='Companyodds', verbose_name='比赛的开注公司', blank=True)
+    Companyodds = models.ManyToManyField(to='Companyodds', verbose_name='比赛的开注公司', blank=True)
 
     class Meta:
         verbose_name_plural = '比赛信息'
         verbose_name = '比赛信息'
+
     def __str__(self):
-        return self.homename+'&'+self.visitname
+        return self.homename + '&' + self.visitname
 
 
 class Letball(models.Model):
-    companyid = models.ForeignKey('Companyodds',db_column='CompanyId', blank=True, null=True)  # Field name made lowercase.
-    gameinfo = models.ForeignKey('Gameinfo', db_column='GameinfoId', blank=True, null=True, default='1')
+    companyid = models.ForeignKey('Companyodds', db_column='CompanyId', blank=True,
+                                  null=True)  # Field name made lowercase.
+    gameinfo = models.ForeignKey('Gameinfo', db_column='GameinfoId', blank=True, null=True)
     left = models.CharField(max_length=10, blank=True, null=True)
     right = models.CharField(max_length=10, blank=True, null=True)
     half_left = models.CharField(max_length=10, blank=True, null=True, default='0')
     half_right = models.CharField(max_length=10, blank=True, null=True, default='0')
     Handicap = models.CharField(max_length=10, blank=True, null=True, default='0')  # 盘口
-    Half_handicap=models.CharField(max_length=10, blank=True, null=True, default='0')
+    Half_handicap = models.CharField(max_length=10, blank=True, null=True, default='0')
+
     class Meta:
         verbose_name_plural = '让球赔率'
         verbose_name = '让球赔率'
+
+    def __str__(self):
+        return self.gameinfo.homename + '&' + self.gameinfo.visitname
 
 
 class Teaminfo(models.Model):
@@ -91,13 +102,14 @@ class Teaminfo(models.Model):
     class Meta:
         verbose_name_plural = '队伍信息'
         verbose_name = '队伍信息'
+
     def __str__(self):
         return self.name
 
 
 class Winalone(models.Model):
-    companyid = models.ForeignKey('Companyodds',db_column='CompanyId')  # Field name made lowercase.
-    gameinfo =models.ForeignKey('Gameinfo',db_column='GameinfoId',blank=True, null=True,default='1')
+    companyid = models.ForeignKey('Companyodds', db_column='CompanyId')  # Field name made lowercase.
+    gameinfo = models.ForeignKey('Gameinfo', db_column='GameinfoId', blank=True, null=True)
     homefullwinodds = models.FloatField(db_column='HomeFullWinOdds')  # Field name made lowercase.
     homefulldefeatodds = models.FloatField(db_column='HomeFullDefeatOdds')  # Field name made lowercase.
     fulldrawodds = models.FloatField(db_column='FullDrawOdds')  # Field name made lowercase.
@@ -110,6 +122,6 @@ class Winalone(models.Model):
     class Meta:
         verbose_name_plural = '独赢赔率'
         verbose_name = '独赢赔率'
-    def __str__(self):
-        return self.gameinfo.homename+'&'+self.gameinfo.visitname
 
+    def __str__(self):
+        return self.gameinfo.homename + '&' + self.gameinfo.visitname
