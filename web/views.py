@@ -1,5 +1,7 @@
-from django.shortcuts import render,HttpResponse,redirect,reverse
+from django.shortcuts import render, HttpResponse, redirect, reverse
 from web import models
+
+
 # Create your views here.
 
 def odds_list(request):
@@ -18,8 +20,11 @@ def odds_list(request):
     :param request:
     :return:
     '''
-
-    all_event=models.Eventinfo.objects.all().values()
-
-    print([models.Gameinfo.objects.filter(eventid=i['id']).values() for i in all_event])
-    return HttpResponse('ok')
+    # 队伍信息
+    all_game = models.Gameinfo.objects.all().values('id','homename','visitname','gametime','eventid__name','Companyodds__name')
+    for i in all_game:
+        i['Companyodds__winalone']=models.Winalone.objects.filter(gameinfo=i['id']).values('homefullwinodds','homefulldefeatodds','fulldrawodds','homehalfwinodds','homehalfdefeatodds','halfdrawodds')
+        i['Companyodds__bigsmall']=models.Bigsmall.objects.filter(gameinfo=i['id']).values('big','handicap','small','half_big','half_handicap','half_small')
+        i['Companyodds__letball']=models.Letball.objects.filter(gameinfo=i['id']).values('left','Handicap','right','half_left','Half_handicap','half_right')
+    # print(all_game)
+    return render(request,'odds_list.html',{'all_game':all_game})

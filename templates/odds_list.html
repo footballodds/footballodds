@@ -1,0 +1,156 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>
+    Argon Dashboard - Free Dashboard for Bootstrap 4 by Creative Tim
+  </title>
+  <!-- Favicon -->
+  <link href="{% static 'home/img/brand/favicon.png' %}" rel="icon" type="image/png">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+  <!-- Icons -->
+  <link href="{% static 'home/js/plugins/nucleo/css/nucleo.css' %}" rel="stylesheet" />
+  <link href="/static/home/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
+  <!-- CSS Files -->
+  <link href="{% static 'home/css/argon-dashboard' %}.css?v=1.1.2" rel="stylesheet" />
+
+
+
+    <title>Title</title>
+
+
+</head>
+<body class="">
+<div class="main-content">
+   <div class="container-fluid">
+    <div class="row mt-5">
+        <div class="col">
+          <div class="card bg-default shadow">
+              {% for data in all_game %}
+            <div class="card-header bg-transparent border-0">
+              <h3 class="text-white mb-0">{{ data.eventid__name }}</h3>
+            </div>
+            <div class="table-responsive">
+              <table class="table align-items-center table-dark table-flush table-hover">
+                <thead class="thead-dark ">
+                  <tr>
+
+                      <th scope="col" ></th>
+                    <th scope="col">{{ data.homename }}</th>
+                      <th scope="col" ></th>
+                    <th >{{ data.gametime|date }}</th>
+                      <th scope="col" ></th>
+                    <th scope="col">{{ data.visitname }}</th>
+                      <th scope="col" ></th>
+                  </tr>
+                </thead>
+                <thead class="thead-dark ">
+                  <tr>
+                     <th scope="col" ></th>
+                     <th scope="col" ></th>
+                      <th scope="col" >全场</th>
+                      <th scope="col" ></th>
+                      <th scope="col" ></th>
+                      <th scope="col" >上半场</th>
+                      <th scope="col" ></th>
+                  </tr>
+                  </thead>
+                <thead class="thead-dark">
+                  <tr>
+
+                    <th >独赢</th>
+                    <th scope="col">胜</th>
+                    <th scope="col">平</th>
+                    <th scope="col">负</th>
+                    <th scope="col">胜</th>
+                    <th scope="col">平</th>
+                    <th scope="col">负</th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                {% for solo in data.Companyodds__winalone %}
+                <tr>
+                    <td >{{ data.Companyodds__name }}</td>
+                    <td scope="col">{{ solo.homefullwinodds }}</td>
+                    <td scope="col">{{ solo.fulldrawodds }}</td>
+                    <td scope="col">{{ solo.homefulldefeatodds }}</td>
+
+                    <td scope="col">{{ solo.homehalfwinodds }}</td>
+                    <td scope="col">{{ solo.halfdrawodds }}</td>
+                    <td scope="col">{{ solo.homehalfdefeatodds }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+                <thead class="thead-dark">
+                <th >让球</th>
+                    <th  >左</th>
+                    <th  >盘口</th>
+                    <th  >右</th>
+                    <th  >左</th>
+                    <th  >盘口</th>
+                    <th  >右</th>
+            </thead>
+                <tbody>
+                {%  for let in data.Companyodds__letball  %}
+                        <tr>
+                            <td>{{ data.Companyodds__name }}</td>
+                            <td  >{{ let.left }}</td>
+                            <td  >{{ let.Handicap }}</td>
+                            <td  >{{ let.right }}</td>
+                            <td  >{{ let.half_left }}</td>
+                            <td  >{{ let.Half_handicap }}</td>
+                            <td  >{{ let.half_right }}</td>
+                        </tr>
+                {% endfor %}
+            </tbody>
+                <thead class="thead-dark">
+                <th >大小</th>
+                    <th >大</th>
+                    <th >盘口</th>
+                    <th >小</th>
+                    <th >大</th>
+                    <th >盘口</th>
+                    <th >小</th>
+            </thead>
+                <tbody>
+                {%  for big in data.Companyodds__bigsmall  %}
+                        <tr>
+                            <td>{{ data.Companyodds__name }}</td>
+                            <td >{{ big.big }}</td>
+                            <td >{{ big.handicap }}</td>
+                            <td >{{ big.small }}</td>
+                            <td >{{ big.half_big }}</td>
+                            <td >{{ big.half_handicap }}</td>
+                            <td >{{ big.half_small }}</td>
+                        </tr>
+                {% endfor %}
+            </tbody>
+              </table>
+            </div>
+              {% endfor %}
+          </div>
+        </div>
+    </div>
+</div>
+</div>
+
+    <!--   Core   -->
+  <script src="{% static 'home/js/plugins/jquery/dist/jquery.min.js' %}"></script>
+  <script src="{% static 'home/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+  <!--   Optional JS   -->
+  <!--   Argon JS   -->
+  <script src="/static/home/js/argon-dashboard.min.js?v=1.1.2"></script>
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
+    window.TrackJS &&
+      TrackJS.install({
+        token: "ee6fab19c5a04ac1a32a645abde4613a",
+        application: "argon-dashboard-free"
+      });
+  </script>
+</body>
+</html>

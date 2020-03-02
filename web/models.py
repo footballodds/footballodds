@@ -61,7 +61,7 @@ class Eventinfo(models.Model):
 
 
 class Gameinfo(models.Model):
-    eventid = models.ForeignKey(Eventinfo, models.DO_NOTHING, db_column='EventId')  # Field name made lowercase.
+    eventid = models.ForeignKey('Eventinfo',  db_column='EventId')  # Field name made lowercase.
     homename = models.CharField(db_column='HomeName', max_length=100, blank=True,
                                 null=True)  # Field name made lowercase.
     gametime = models.DateTimeField(db_column='GameTime')  # Field name made lowercase.
@@ -98,6 +98,7 @@ class Letball(models.Model):
 
 class Teaminfo(models.Model):
     name = models.CharField(unique=True, max_length=100)
+    eventid=models.ForeignKey('Eventinfo',db_column='EventId',default=1)
 
     class Meta:
         verbose_name_plural = '队伍信息'
