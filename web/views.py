@@ -27,4 +27,6 @@ def odds_list(request):
         i['Companyodds__bigsmall']=models.Bigsmall.objects.filter(gameinfo=i['id']).values('big','handicap','small','half_big','half_handicap','half_small')
         i['Companyodds__letball']=models.Letball.objects.filter(gameinfo=i['id']).values('left','Handicap','right','half_left','Half_handicap','half_right')
     # print(all_game)
+
+    print(all_game)
     return render(request,'odds_list.html',{'all_game':all_game})

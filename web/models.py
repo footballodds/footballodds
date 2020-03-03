@@ -99,6 +99,7 @@ class Letball(models.Model):
 class Teaminfo(models.Model):
     name = models.CharField(unique=True, max_length=100)
     eventid=models.ForeignKey('Eventinfo',db_column='EventId',default=1)
+    detaild=models.TextField(max_length=255,default='')
 
     class Meta:
         verbose_name_plural = '队伍信息'
