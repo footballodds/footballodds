@@ -13,12 +13,13 @@ from django.db import models
 class Bigsmall(models.Model):
     companyid = models.ForeignKey('Companyodds', db_column='CompanyId')  # Field name made lowercase.
     gameinfo = models.ForeignKey('Gameinfo', db_column='GameinfoId', blank=True, null=True)
-    handicap = models.CharField(db_column='Handicap', max_length=11, blank=True, default='0')  # Field name made lowercase.
+    handicap = models.CharField(db_column='Handicap', max_length=11, blank=True,
+                                default='0')  # Field name made lowercase.
     big = models.FloatField(db_column='Big', blank=True, null=True)  # Field name made lowercase.
     small = models.FloatField(db_column='Small', blank=True, null=True)  # Field name made lowercase.
     half_big = models.FloatField(db_column='half_big', blank=True, null=True)
     half_small = models.FloatField(db_column='half_small', blank=True, null=True)
-    half_handicap = models.CharField(db_column='Half_handicap',max_length=11, blank=True, default='0')
+    half_handicap = models.CharField(db_column='Half_handicap', max_length=11, blank=True, default='0')
 
     class Meta:
         verbose_name_plural = '大小表'
@@ -30,7 +31,7 @@ class Bigsmall(models.Model):
 
 class Companyodds(models.Model):
     name = models.CharField(db_column='Name', max_length=200)  # Field name made lowercase.
-    updatetime = models.DateTimeField(db_column='Updatetime', blank=True, null=True)  # Field name made lowercase.
+    updatetime = models.BigIntegerField(db_column='Updatetime', blank=True, null=True)  # Field name made lowercase.
 
     class Meta:
         verbose_name_plural = '赔率表'
@@ -51,7 +52,7 @@ class Companyodds(models.Model):
 
 class Eventinfo(models.Model):
     name = models.CharField(max_length=100)
-
+    detaild = models.TextField(max_length=255, default='')
     class Meta:
         verbose_name_plural = '联赛'
         verbose_name = '联赛'
@@ -61,7 +62,7 @@ class Eventinfo(models.Model):
 
 
 class Gameinfo(models.Model):
-    eventid = models.ForeignKey('Eventinfo',  db_column='EventId')  # Field name made lowercase.
+    eventid = models.ForeignKey('Eventinfo', db_column='EventId')  # Field name made lowercase.
     homename = models.CharField(db_column='HomeName', max_length=100, blank=True,
                                 null=True)  # Field name made lowercase.
     gametime = models.DateTimeField(db_column='GameTime')  # Field name made lowercase.
@@ -98,8 +99,8 @@ class Letball(models.Model):
 
 class Teaminfo(models.Model):
     name = models.CharField(unique=True, max_length=100)
-    eventid=models.ForeignKey('Eventinfo',db_column='EventId',default=1)
-    detaild=models.TextField(max_length=255,default='')
+    eventid = models.ForeignKey('Eventinfo', db_column='EventId', default=1)
+    detaild = models.TextField(max_length=255, default='')
 
     class Meta:
         verbose_name_plural = '队伍信息'

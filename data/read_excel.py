@@ -1,31 +1,44 @@
 # coding=utf-8
 
-import xlrd
+import xlrd, time
+
+
+# from web import models
 class matchinfo:
-    def __init__(self,matchname,teamname,company):
-        self.matchname=matchname
-        self.teamname=teamname
-        self.company=company
+
+    def __init__(self, matchname, teamname, company):
+        self.matchname = matchname
+        self.teamname = teamname
+        self.company = company
+
+
 # 打开文件
-data = xlrd.open_workbook('C:/Users/lckamzl/Desktop/TeamName.xls')
+data = xlrd.open_workbook('C:/Users/Administrator/Desktop/TeamName.xls')
 
 # 查看工作表
-sheet=data.sheet_names()
+sheet = data.sheet_names()
 
-company=data.sheet_by_name('奥甲').row_values(0,1)
+company = data.sheet_by_name('奥甲').row_values(0, 1)
+print(company, round(time.time() * 1000))
 
 # 通过文件名获得工作表,获取工作表1
-
+matchname = []
+teamname = []
 for i in sheet:
-    matchname = []
     table = data.sheet_by_name(i)
-    li=table.row_values(2,1)
+    li = table.row_values(2, 1)
     matchname.append(li)
-    for ncols in range(len(li)):
-        table.col_values(ncols+1)
-        print(table.col_values(ncols+1,4))
+    for n in range(4, 8):
+        if table.cell(n, 2) == '':
+            continue
+        teamname.append(list(set(table.row_values(n, 1))))
 
+print('联赛', matchname[0:-3])
+num=teamname.count([''])
+for n in range(num):
+    teamname.remove([''])
 
+print('队伍', teamname)
 
 # 打印data.sheet_names()可发现，返回的值为一个列表，通过对列表索引操作获得工作表1
 # table = data.sheet_by_index(0)
