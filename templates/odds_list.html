@@ -75,13 +75,23 @@
                 {% for solo in data.Companyodds__winalone %}
                 <tr>
                     <td >{{ data.Companyodds__name }}</td>
-                    <td scope="col">{{ solo.homefullwinodds }}</td>
-                    <td scope="col">{{ solo.fulldrawodds }}</td>
-                    <td scope="col">{{ solo.homefulldefeatodds }}</td>
+                    {% if solo.is_half %}
+                        <td scope="col"></td>
+                    <td scope="col"></td>
+                    <td scope="col"></td>
+                    <td scope="col">{{ solo.win }}</td>
+                    <td scope="col">{{ solo.draw }}</td>
+                    <td scope="col">{{ solo.lose }}</td>
 
-                    <td scope="col">{{ solo.homehalfwinodds }}</td>
-                    <td scope="col">{{ solo.halfdrawodds }}</td>
-                    <td scope="col">{{ solo.homehalfdefeatodds }}</td>
+
+                    {% else %}
+                    <td scope="col">{{ solo.win }}</td>
+                    <td scope="col">{{ solo.draw }}</td>
+                    <td scope="col">{{ solo.lose }}</td>
+                    <td scope="col"></td>
+                    <td scope="col"></td>
+                    <td scope="col"></td>
+                    {% endif %}
                 </tr>
                 {% endfor %}
             </tbody>

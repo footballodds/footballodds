@@ -17,7 +17,7 @@ data = xlrd.open_workbook('C:/Users/Administrator/Desktop/TeamName.xls')
 
 # 查看工作表
 sheet = data.sheet_names()
-
+print (sheet)
 company = data.sheet_by_name('奥甲').row_values(0, 1)
 print(company, round(time.time() * 1000))
 

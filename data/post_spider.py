@@ -1,5 +1,59 @@
 import requests, time, datetime
 from data import common
+
+
+def winalone(css, gamedic):
+    li = {}
+    if css in gamedic:
+        li = common.fullsolowin(gamedic[css][1], gamedic[css][5], gamedic[css][3])
+    return li
+
+
+def letball(css, dic):
+    li = []
+    if css in dic:
+        let_li = [dic[css][p] for p in range(len(dic[css]) + 1) if
+                  p % 2 != 0]
+
+        for m in range(0, len(let_li) + 1, 4):
+            if (m + 4) <= len(let_li):
+                if let_li[m][0] == "+" or let_li[m][0] == '-':
+                    if '/' in let_li[m]:
+                        new = let_li[m].strip('+').split('/')
+                        if new[0] == '0':
+                            let_li[m] = float(new[1]) / 2
+                        else:
+                            let_li[m] = (float(new[0]) + float(new[1])) / 2
+                        li.append(
+                            common.letball(let_li[m], float(let_li[m + 2]), float(let_li[m + 3])))
+                    else:
+                        li.append(
+                            common.letball(float(let_li[m][1:]), float(let_li[m + 2]), float(let_li[m + 3])))
+                else:
+                    li.append(
+                        common.letball(float(let_li[m]), float(let_li[m + 2]), float(let_li[m + 3])))
+    return li
+
+
+def bigsmall(css, dic):
+    li_result = []
+    if css in dic:
+        li = [dic[css][p] for p in range(len(dic[css]) + 1) if
+              p % 2 != 0]
+        for n in range(0, len(li) + 1, 4):
+            if (n + 4) <= len(li):
+                if '/' in li[n]:
+                    new = li[n].split('/')
+                    if new[0] == '0':
+                        li[n] = -float(new[1]) / 2
+                    else:
+                        li[n] = (float(new[0]) + float(new[1])) / 2
+                    li_result.append(common.bigball(li[n], float(li[n + 2]), float(li[n + 3])))
+                else:
+                    li_result.append(common.bigball(float(li[n]), float(li[n + 2]), float(li[n + 3])))
+    return li_result
+
+
 def data188():
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36",
@@ -31,25 +85,11 @@ def data188():
     game_dic = first_dic['mod']['d'][0]['c']
 
     if game_dic is not None:
-        Final = []
         info = {}
         for i in range(len(game_dic)):
             game_name = game_dic[i]['n']
             info[game_name] = []
-            '''
-            {
-                'time': {},
-                'info': {'n': '', 'game': []},
-                'full_win_alone': {},
-                'half_win_alone': {},
-                'full_let_ball': {},
-                'half_let_ball': {},
-                'full_big_small': {},
-                'half_big_small': {},
-                'corner_kick': {}
-    
-            }
-            '''
+
             for j in range(len(game_dic[i]['e'])):
                 j_info = {}
                 game_time = str(datetime.datetime.strptime(game_dic[i]['e'][j]['edt'].replace('T', ' '),
@@ -58,70 +98,18 @@ def data188():
                 j_info['info'] = {'n': game_dic[i]['e'][j]['cei']['n'],
                                   'game': {'Home': game_dic[i]['e'][j]['i'][0], 'Visit': game_dic[i]['e'][j]['i'][1]}}
                 # 全场独赢
-                j_info['full_win_alone'] = {}
-                if '1x2' in game_dic[i]['e'][j]['o']:
-                    j_info['full_win_alone'] = common.fullsolowin(game_dic[i]['e'][j]['o']["1x2"][1],
-                                                                  game_dic[i]['e'][j]['o']["1x2"][5],
-                                                                  game_dic[i]['e'][j]['o']["1x2"][3])
-
-                j_info['half_win_alone'] = {}
+                j_info['full_win_alone'] = winalone('1x2', game_dic[i]['e'][j]['o'])
                 # 半场独赢
-                if '1x21st' in game_dic[i]['e'][j]['o']:
-                    j_info['half_win_alone'] = common.halfsolowin(game_dic[i]['e'][j]['o']["1x21st"][1],
-                                                                  game_dic[i]['e'][j]['o']["1x21st"][5],
-                                                                  game_dic[i]['e'][j]['o']["1x21st"][3])
-                j_info['full_let_ball'] = []
+                j_info['half_win_alone'] = winalone('1x21st', game_dic[i]['e'][j]['o'])
                 # 全场让球
-                if 'ah' in game_dic[i]['e'][j]['o']:
-
-                    let_li = [game_dic[i]['e'][j]['o']["ah"][p] for p in range(len(game_dic[i]['e'][j]['o']["ah"]) + 1) if
-                              p % 2 != 0]
-
-                    for m in range(0, len(let_li) + 1, 4):
-                        if (m + 4) <= len(let_li):
-                            if let_li[m][0] == "+" or let_li[m][0] == '-':
-                                j_info['full_let_ball'].append(common.letball(let_li[m][1:], let_li[m + 2], let_li[m + 3]))
-                            else:
-                                j_info['full_let_ball'].append(common.letball(let_li[m], let_li[m + 2], let_li[m + 3]))
-
+                j_info['full_let_ball'] = letball('ah', game_dic[i]['e'][j]['o'])
                 # 半场让球
-                j_info['half_let_ball'] = []
-                if 'ah1st' in game_dic[i]['e'][j]['o']:
-
-                    half_let_li = [game_dic[i]['e'][j]['o']["ah1st"][p] for p in
-                                   range(len(game_dic[i]['e'][j]['o']["ah1st"]) + 1) if
-                                   p % 2 != 0]
-                    for m in range(0, len(half_let_li) + 1, 4):
-                        if (m + 4) <= len(half_let_li):
-                            if half_let_li[m][0] == "+" or half_let_li[m][0] == '-':
-                                j_info['half_let_ball'].append(
-                                    common.letball(half_let_li[m][1:], half_let_li[m + 2], half_let_li[m + 3]))
-                            else:
-                                j_info['half_let_ball'].append(
-                                    common.letball(half_let_li[m], half_let_li[m + 2], half_let_li[m + 3]))
-
+                j_info['half_let_ball'] = letball('ah1st', game_dic[i]['e'][j]['o'])
                 # 全场大小
-                j_info['full_big_small'] = []
-                if 'ou' in game_dic[i]['e'][j]['o']:
-
-                    li = [game_dic[i]['e'][j]['o']["ou"][p] for p in range(len(game_dic[i]['e'][j]['o']["ou"]) + 1) if
-                          p % 2 != 0]
-                    for n in range(0, len(li) + 1, 4):
-                        if (n + 4) <= len(li):
-                            j_info['full_big_small'].append(common.bigball(li[n], li[n + 2], li[n + 3]))
-
+                j_info['full_big_small'] = bigsmall('ou', game_dic[i]['e'][j]['o'])
                 # 半场大小
-                j_info['half_big_small'] = []
-                if 'ou1st' in game_dic[i]['e'][j]['o']:
+                j_info['half_big_small'] = bigsmall('oulst', game_dic[i]['e'][j]['o'])
 
-                    half_li = [game_dic[i]['e'][j]['o']["ou1st"][p] for p in
-                               range(len(game_dic[i]['e'][j]['o']["ou1st"]) + 1) if
-                               p % 2 != 0]
-                    for n in range(0, len(half_li) + 1, 4):
-                        if (n + 4) <= len(half_li):
-                            j_info['half_big_small'].append(
-                                (half_li[n], half_li[n + 2]))
-                            j_info['half_big_small'].append(common.bigball(half_li[n], half_li[n + 2], half_li[n + 3]))
                 j_info['fullmatch'] = common.fullmatch(j_info['full_win_alone'], j_info['full_let_ball'],
                                                        j_info['full_big_small'])
                 j_info['halfmatch'] = common.halfmatch(j_info['half_win_alone'], j_info['half_let_ball'],
@@ -131,6 +119,8 @@ def data188():
                                          game_dic[i]['e'][j]['i'][1], j_info['fullmatch'], j_info['halfmatch'])
                 info[game_name].append(final)
         return info
+
+
 if __name__ == '__main__':
-    print(data188())
+    data = data188()
 

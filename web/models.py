@@ -13,13 +13,11 @@ from django.db import models
 class Bigsmall(models.Model):
     companyid = models.ForeignKey('Companyodds', db_column='CompanyId')  # Field name made lowercase.
     gameinfo = models.ForeignKey('Gameinfo', db_column='GameinfoId', blank=True, null=True)
-    handicap = models.CharField(db_column='Handicap', max_length=11, blank=True,
+    handicap = models.FloatField(db_column='Handicap', blank=True,
                                 default='0')  # Field name made lowercase.
     big = models.FloatField(db_column='Big', blank=True, null=True)  # Field name made lowercase.
     small = models.FloatField(db_column='Small', blank=True, null=True)  # Field name made lowercase.
-    half_big = models.FloatField(db_column='half_big', blank=True, null=True)
-    half_small = models.FloatField(db_column='half_small', blank=True, null=True)
-    half_handicap = models.CharField(db_column='Half_handicap', max_length=11, blank=True, default='0')
+    is_half = models.BooleanField(db_column='is_half',default=0)
 
     class Meta:
         verbose_name_plural = '大小表'
@@ -52,7 +50,7 @@ class Companyodds(models.Model):
 
 class Eventinfo(models.Model):
     name = models.CharField(max_length=100)
-    detaild = models.TextField(max_length=255, default='')
+    detail = models.TextField(max_length=255, default='')
     class Meta:
         verbose_name_plural = '联赛'
         verbose_name = '联赛'
@@ -82,12 +80,10 @@ class Letball(models.Model):
     companyid = models.ForeignKey('Companyodds', db_column='CompanyId', blank=True,
                                   null=True)  # Field name made lowercase.
     gameinfo = models.ForeignKey('Gameinfo', db_column='GameinfoId', blank=True, null=True)
-    left = models.CharField(max_length=10, blank=True, null=True)
-    right = models.CharField(max_length=10, blank=True, null=True)
-    half_left = models.CharField(max_length=10, blank=True, null=True, default='0')
-    half_right = models.CharField(max_length=10, blank=True, null=True, default='0')
-    Handicap = models.CharField(max_length=10, blank=True, null=True, default='0')  # 盘口
-    Half_handicap = models.CharField(max_length=10, blank=True, null=True, default='0')
+    left = models.FloatField(db_column='left',default=0)
+    right = models.FloatField(default=0)
+    Handicap = models.FloatField(default='0')  # 盘口
+    is_half = models.BooleanField(db_column='is_half',default=0)
 
     class Meta:
         verbose_name_plural = '让球赔率'
@@ -100,7 +96,7 @@ class Letball(models.Model):
 class Teaminfo(models.Model):
     name = models.CharField(unique=True, max_length=100)
     eventid = models.ForeignKey('Eventinfo', db_column='EventId', default=1)
-    detaild = models.TextField(max_length=255, default='')
+    detail = models.TextField(max_length=255, default='')
 
     class Meta:
         verbose_name_plural = '队伍信息'
@@ -113,14 +109,10 @@ class Teaminfo(models.Model):
 class Winalone(models.Model):
     companyid = models.ForeignKey('Companyodds', db_column='CompanyId')  # Field name made lowercase.
     gameinfo = models.ForeignKey('Gameinfo', db_column='GameinfoId', blank=True, null=True)
-    homefullwinodds = models.FloatField(db_column='HomeFullWinOdds')  # Field name made lowercase.
-    homefulldefeatodds = models.FloatField(db_column='HomeFullDefeatOdds')  # Field name made lowercase.
-    fulldrawodds = models.FloatField(db_column='FullDrawOdds')  # Field name made lowercase.
-    homehalfwinodds = models.FloatField(db_column='HomeHalfWinOdds', blank=True,
-                                        null=True)  # Field name made lowercase.
-    homehalfdefeatodds = models.FloatField(db_column='HomeHalfDefeatOdds', blank=True,
-                                           null=True)  # Field name made lowercase.
-    halfdrawodds = models.FloatField(db_column='HalfDrawOdds', blank=True, null=True)  # Field name made lowercase.
+    win = models.FloatField(db_column='win',default=0)  # Field name made lowercase.
+    lose = models.FloatField(db_column='lose',default=0)  # Field name made lowercase.
+    draw = models.FloatField(db_column='draw',default=0)  # Field name made lowercase.
+    is_half = models.BooleanField(db_column='is_half',default=0)
 
     class Meta:
         verbose_name_plural = '独赢赔率'
