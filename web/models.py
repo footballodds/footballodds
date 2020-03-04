@@ -14,10 +14,11 @@ class Bigsmall(models.Model):
     companyid = models.ForeignKey('Companyodds', db_column='CompanyId')  # Field name made lowercase.
     gameinfo = models.ForeignKey('Gameinfo', db_column='GameinfoId', blank=True, null=True)
     handicap = models.FloatField(db_column='Handicap', blank=True,
-                                default='0')  # Field name made lowercase.
+                                 default='0')  # Field name made lowercase.
     big = models.FloatField(db_column='Big', blank=True, null=True)  # Field name made lowercase.
     small = models.FloatField(db_column='Small', blank=True, null=True)  # Field name made lowercase.
-    is_half = models.BooleanField(db_column='is_half',default=0)
+    is_half = models.BooleanField(db_column='is_half', default=0)
+    playclass = models.BooleanField(db_column='playclass', default=0)
 
     class Meta:
         verbose_name_plural = '大小表'
@@ -51,6 +52,7 @@ class Companyodds(models.Model):
 class Eventinfo(models.Model):
     name = models.CharField(max_length=100)
     detail = models.TextField(max_length=255, default='')
+
     class Meta:
         verbose_name_plural = '联赛'
         verbose_name = '联赛'
@@ -80,10 +82,11 @@ class Letball(models.Model):
     companyid = models.ForeignKey('Companyodds', db_column='CompanyId', blank=True,
                                   null=True)  # Field name made lowercase.
     gameinfo = models.ForeignKey('Gameinfo', db_column='GameinfoId', blank=True, null=True)
-    left = models.FloatField(db_column='left',default=0)
-    right = models.FloatField(default=0)
+    lbleft = models.FloatField(db_column='lbleft', default=0)
+    lbright = models.FloatField(db_column='lbright',default=0)
     Handicap = models.FloatField(default='0')  # 盘口
-    is_half = models.BooleanField(db_column='is_half',default=0)
+    is_half = models.BooleanField(db_column='is_half', default=0)
+    playclass = models.BooleanField(db_column='playclass', default=0)
 
     class Meta:
         verbose_name_plural = '让球赔率'
@@ -109,10 +112,11 @@ class Teaminfo(models.Model):
 class Winalone(models.Model):
     companyid = models.ForeignKey('Companyodds', db_column='CompanyId')  # Field name made lowercase.
     gameinfo = models.ForeignKey('Gameinfo', db_column='GameinfoId', blank=True, null=True)
-    win = models.FloatField(db_column='win',default=0)  # Field name made lowercase.
-    lose = models.FloatField(db_column='lose',default=0)  # Field name made lowercase.
-    draw = models.FloatField(db_column='draw',default=0)  # Field name made lowercase.
-    is_half = models.BooleanField(db_column='is_half',default=0)
+    win = models.FloatField(db_column='win', default=0)  # Field name made lowercase.
+    lose = models.FloatField(db_column='lose', default=0)  # Field name made lowercase.
+    draw = models.FloatField(db_column='draw', default=0)  # Field name made lowercase.
+    is_half = models.BooleanField(db_column='is_half', default=0)
+    playclass = models.BooleanField(db_column='playclass', default=0)
 
     class Meta:
         verbose_name_plural = '独赢赔率'

@@ -1,4 +1,4 @@
-import requests, time, datetime
+import requests, time, datetime, xlrd, xlwt
 from data import common
 
 
@@ -54,6 +54,16 @@ def bigsmall(css, dic):
     return li_result
 
 
+def writexecel(path, eventname, teamname):
+    # C:/Users/Administrator/Desktop/game
+    writebook = xlwt.Workbook()
+    sheet = writebook.add_sheet(eventname)
+    for i in range(len(teamname)):
+        sheet.write(i, 0, teamname[i][0])
+        sheet.write(i, 1, teamname[i][1])
+    writebook.save(path)
+
+
 def data188():
     headers = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/79.0.3945.130 Safari/537.36",
@@ -89,7 +99,7 @@ def data188():
         for i in range(len(game_dic)):
             game_name = game_dic[i]['n']
             info[game_name] = []
-
+            execl_teamname = []
             for j in range(len(game_dic[i]['e'])):
                 j_info = {}
                 game_time = str(datetime.datetime.strptime(game_dic[i]['e'][j]['edt'].replace('T', ' '),
@@ -118,6 +128,8 @@ def data188():
                 final = common.matchinfo(j_info['time'], game_dic[i]['e'][j]['i'][0],
                                          game_dic[i]['e'][j]['i'][1], j_info['fullmatch'], j_info['halfmatch'])
                 info[game_name].append(final)
+                # execl_teamname.append((game_dic[i]['e'][j]['i'][0], game_dic[i]['e'][j]['i'][1]))
+            # writexecel('C:/Users/Administrator/Desktop/game/{}.xls'.format(game_name),game_name, execl_teamname)
         return info
 
 
