@@ -38,29 +38,29 @@
                 <thead class="thead-dark ">
                   <tr>
 
-                      <th scope="col" ></th>
+
                     <th scope="col">{{ data.homename }}</th>
-                      <th scope="col" ></th>
-                    <th >{{ data.gametime|date }}</th>
-                      <th scope="col" ></th>
-                    <th scope="col">{{ data.visitname }}</th>
-                      <th scope="col" ></th>
+
+                    <th scope="col">{{ data.gametime|date:"m-d H:i" }}</th>
+
+                    <th scope="col">{{ data.awayname }}</th>
+
                   </tr>
                 </thead>
                 <thead class="thead-dark ">
                   <tr>
-                     <th scope="col" ></th>
-                     <th scope="col" ></th>
+                      <th scope="col" ></th>
+                      <th scope="col" ></th>
                       <th scope="col" >全场</th>
                       <th scope="col" ></th>
                       <th scope="col" ></th>
                       <th scope="col" >上半场</th>
                       <th scope="col" ></th>
+
                   </tr>
                   </thead>
                 <thead class="thead-dark">
                   <tr>
-
                     <th >独赢</th>
                     <th scope="col">胜</th>
                     <th scope="col">平</th>
@@ -68,77 +68,117 @@
                     <th scope="col">胜</th>
                     <th scope="col">平</th>
                     <th scope="col">负</th>
-
                   </tr>
                 </thead>
                 <tbody>
-                {% for solo in data.Companyodds__winalone %}
-                <tr>
-                    <td >{{ data.Companyodds__name }}</td>
-                    {% if solo.is_half %}
-                        <td scope="col"></td>
-                    <td scope="col"></td>
-                    <td scope="col"></td>
-                    <td scope="col">{{ solo.win }}</td>
-                    <td scope="col">{{ solo.draw }}</td>
-                    <td scope="col">{{ solo.lose }}</td>
+                {%   if data.winodds %}
+                    <tr>
+                        <td>{{ data.winodds.win.0 }}</td>
+                        <td>{{ data.winodds.draw.0 }}</td>
+                        <td>{{ data.winodds.lose.0 }}</td>
+                        <td>返还率</td>
+                    </tr>
+                    <tr>
+                        <td>{{ data.winodds.win.1 }}</td>
+                        <td>{{ data.winodds.draw.1 }}</td>
+                        <td>{{ data.winodds.lose.1 }}</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>{{ data.winodds.win.2 }}</td>
+                        <td>{{ data.winodds.draw.2 }}</td>
+                        <td>{{ data.winodds.lose.2 }}</td>
+                        <td>{{ data.winodds.return_odds }}</td>
+                    </tr>
 
-
-                    {% else %}
-                    <td scope="col">{{ solo.win }}</td>
-                    <td scope="col">{{ solo.draw }}</td>
-                    <td scope="col">{{ solo.lose }}</td>
-                    <td scope="col"></td>
-                    <td scope="col"></td>
-                    <td scope="col"></td>
-                    {% endif %}
-                </tr>
-                {% endfor %}
-            </tbody>
-                <thead class="thead-dark">
-                <th >让球</th>
-                    <th  >左</th>
-                    <th  >盘口</th>
-                    <th  >右</th>
-                    <th  >左</th>
-                    <th  >盘口</th>
-                    <th  >右</th>
-            </thead>
-                <tbody>
-                {%  for let in data.Companyodds__letball  %}
-                        <tr>
-                            <td>{{ data.Companyodds__name }}</td>
-                            <td  >{{ let.left }}</td>
-                            <td  >{{ let.Handicap }}</td>
-                            <td  >{{ let.right }}</td>
-                            <td  >{{ let.half_left }}</td>
-                            <td  >{{ let.Half_handicap }}</td>
-                            <td  >{{ let.half_right }}</td>
-                        </tr>
-                {% endfor %}
-            </tbody>
-                <thead class="thead-dark">
-                <th >大小</th>
-                    <th >大</th>
-                    <th >盘口</th>
-                    <th >小</th>
-                    <th >大</th>
-                    <th >盘口</th>
-                    <th >小</th>
-            </thead>
-                <tbody>
-                {%  for big in data.Companyodds__bigsmall  %}
-                        <tr>
-                            <td>{{ data.Companyodds__name }}</td>
-                            <td >{{ big.big }}</td>
-                            <td >{{ big.handicap }}</td>
-                            <td >{{ big.small }}</td>
-                            <td >{{ big.half_big }}</td>
-                            <td >{{ big.half_handicap }}</td>
-                            <td >{{ big.half_small }}</td>
-                        </tr>
-                {% endfor %}
-            </tbody>
+                {% endif %}
+{#                {% for solo in data.Companyodds__winalone %}#}
+{#                <tr>#}
+{#                    <td >{{ solo.companyid__name }}</td>#}
+{#                    {% if solo.is_half %}#}
+{#                    <td scope="col"></td>#}
+{#                    <td scope="col"></td>#}
+{#                    <td scope="col"></td>#}
+{#                    <td scope="col">{{ solo.win }}</td>#}
+{#                    <td scope="col">{{ solo.draw }}</td>#}
+{#                    <td scope="col">{{ solo.lose }}</td>#}
+{##}
+{#                    {% else %}#}
+{#                    <td scope="col">{{ solo.win }}</td>#}
+{#                    <td scope="col">{{ solo.draw }}</td>#}
+{#                    <td scope="col">{{ solo.lose }}</td>#}
+{#                    <td scope="col"></td>#}
+{#                    <td scope="col"></td>#}
+{#                    <td scope="col"></td>#}
+{#                    {% endif %}#}
+{#                </tr>#}
+{#                {% endfor %}#}
+                </tbody>
+{#                <thead class="thead-dark">#}
+{#                <th >让球</th>#}
+{#                    <th  >左</th>#}
+{#                    <th  >盘口</th>#}
+{#                    <th  >右</th>#}
+{#                    <th  >左</th>#}
+{#                    <th  >盘口</th>#}
+{#                    <th  >右</th>#}
+{#            </thead>#}
+{#                <tbody>#}
+{#                {%  for let in data.Companyodds__letball  %}#}
+{##}
+{#                    <tr>#}
+{#                    <td>{{ let.companyid__name }}</td>#}
+{#                    {% if let.is_half %}#}
+{#                    <td scope="col"></td>#}
+{#                    <td scope="col"></td>#}
+{#                    <td scope="col"></td>#}
+{#                    <td  scope="col">{{ let.lbleft }}</td>#}
+{#                    <td  scope="col">{{ let.Handicap }}</td>#}
+{#                    <td  scope="col">{{ let.lbright }}</td>#}
+{#                    {% else %}#}
+{#                    <td scope="col" >{{ let.lbleft }}</td>#}
+{#                    <td scope="col">{{ let.Handicap }}</td>#}
+{#                    <td scope="col">{{ let.lbright }}</td>#}
+{#                    <td scope="col"></td>#}
+{#                    <td scope="col"></td>#}
+{#                    <td scope="col"></td>#}
+{#                    {% endif %}#}
+{#                        </tr>#}
+{#                {% endfor %}#}
+{#                </tbody>#}
+{#                <thead class="thead-dark">#}
+{#                <th >大小</th>#}
+{#                    <th >大</th>#}
+{#                    <th >盘口</th>#}
+{#                    <th >小</th>#}
+{#                    <th >大</th>#}
+{#                    <th >盘口</th>#}
+{#                    <th >小</th>#}
+{#            </thead>#}
+{#                <tbody>#}
+{#                {%  for big in data.Companyodds__bigsmall  %}#}
+{#                    <tr>#}
+{#                    <td>{{ big.companyid__name }}</td>#}
+{#                    {% if big.is_half %}#}
+{#                    <td scope="col"></td>#}
+{#                    <td scope="col"></td>#}
+{#                    <td scope="col"></td>#}
+{#                    <td scope="col">{{ big.big }}</td>#}
+{#                    <td scope="col">{{ big.handicap }}</td>#}
+{#                    <td scope="col">{{ big.small }}</td>#}
+{#                    {% else %}#}
+{#                    <td scope="col">{{ big.big }}</td>#}
+{#                    <td scope="col">{{ big.handicap }}</td>#}
+{#                    <td scope="col">{{ big.small }}</td>#}
+{#                    <td scope="col"></td>#}
+{#                    <td scope="col"></td>#}
+{#                    <td scope="col"></td>#}
+{#                    {% endif %}#}
+{#                    #}
+{#                    </tr>#}
+{#                {% endfor %}#}
+{#                #}
+{#                </tbody>#}
               </table>
             </div>
               {% endfor %}

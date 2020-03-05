@@ -66,9 +66,10 @@ class Gameinfo(models.Model):
     homename = models.CharField(db_column='HomeName', max_length=100, blank=True,
                                 null=True)  # Field name made lowercase.
     gametime = models.DateTimeField(db_column='GameTime')  # Field name made lowercase.
-    visitname = models.CharField(db_column='VisitName', max_length=100, blank=True,
+    awayname = models.CharField(db_column='AwayName', max_length=100, blank=True,
                                  null=True)  # Field name made lowercase.
     Companyodds = models.ManyToManyField(to='Companyodds', verbose_name='比赛的开注公司', blank=True)
+
 
     class Meta:
         verbose_name_plural = '比赛信息'
@@ -123,4 +124,4 @@ class Winalone(models.Model):
         verbose_name = '独赢赔率'
 
     def __str__(self):
-        return self.gameinfo.homename + '&' + self.gameinfo.visitname
+        return self.gameinfo.homename + '&' + self.gameinfo.awayname
