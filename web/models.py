@@ -6,7 +6,7 @@
 #   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
 # Feel free to rename the models, but don't rename db_table values or field names.
 from __future__ import unicode_literals
-
+import datetime
 from django.db import models
 
 
@@ -19,7 +19,7 @@ class Bigsmall(models.Model):
     small = models.FloatField(db_column='Small', blank=True, null=True)  # Field name made lowercase.
     is_half = models.BooleanField(db_column='is_half', default=0)
     playclass = models.BooleanField(db_column='playclass', default=0)
-
+    updatetime = models.DateTimeField(default='2020-03-05 20:28:22')
     class Meta:
         verbose_name_plural = '大小表'
         verbose_name = '大小表'
@@ -30,7 +30,7 @@ class Bigsmall(models.Model):
 
 class Companyodds(models.Model):
     name = models.CharField(db_column='Name', max_length=200)  # Field name made lowercase.
-    updatetime = models.BigIntegerField(db_column='Updatetime', blank=True, null=True)  # Field name made lowercase.
+    updatetime = models.DateTimeField(db_column='Updatetime',default='2020-03-05 20:28:22')  # Field name made lowercase.
 
     class Meta:
         verbose_name_plural = '赔率表'
@@ -88,7 +88,7 @@ class Letball(models.Model):
     Handicap = models.FloatField(default='0')  # 盘口
     is_half = models.BooleanField(db_column='is_half', default=0)
     playclass = models.BooleanField(db_column='playclass', default=0)
-
+    updatetime = models.DateTimeField(default='2020-03-05 20:28:22')
     class Meta:
         verbose_name_plural = '让球赔率'
         verbose_name = '让球赔率'
@@ -118,7 +118,7 @@ class Winalone(models.Model):
     draw = models.FloatField(db_column='draw', default=0)  # Field name made lowercase.
     is_half = models.BooleanField(db_column='is_half', default=0)
     playclass = models.BooleanField(db_column='playclass', default=0)
-
+    updatetime=models.DateTimeField(default='2020-03-05 20:28:22')
     class Meta:
         verbose_name_plural = '独赢赔率'
         verbose_name = '独赢赔率'
