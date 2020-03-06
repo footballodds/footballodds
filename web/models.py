@@ -94,8 +94,7 @@ class Letball(models.Model):
         verbose_name = '让球赔率'
 
     def __str__(self):
-        return self.gameinfo.homename + '&' + self.gameinfo.visitname
-
+        return self.gameinfo.homename + '&' + self.gameinfo.awayname
 
 class Teaminfo(models.Model):
     name = models.CharField(unique=True, max_length=100)

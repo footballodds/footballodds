@@ -2,21 +2,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>
-    Argon Dashboard - Free Dashboard for Bootstrap 4 by Creative Tim
-  </title>
-  <!-- Favicon -->
-  <link href="{% static 'home/img/brand/favicon.png' %}" rel="icon" type="image/png">
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
-  <!-- Icons -->
-  <link href="{% static 'home/js/plugins/nucleo/css/nucleo.css' %}" rel="stylesheet" />
-  <link href="/static/home/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet" />
-  <!-- CSS Files -->
-  <link href="{% static 'home/css/argon-dashboard' %}.css?v=1.1.2" rel="stylesheet" />
-
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>
+        Argon Dashboard - Free Dashboard for Bootstrap 4 by Creative Tim
+    </title>
+    <!-- Favicon -->
+    <link href="{% static 'home/img/brand/favicon.png' %}" rel="icon" type="image/png">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet">
+    <!-- Icons -->
+    <link href="{% static 'home/js/plugins/nucleo/css/nucleo.css' %}" rel="stylesheet"/>
+    <link href="/static/home/js/plugins/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet"/>
+    <!-- CSS Files -->
+    <link href="{% static 'home/css/argon-dashboard' %}.css?v=1.1.2" rel="stylesheet"/>
 
 
     <title>Title</title>
@@ -25,182 +24,261 @@
 </head>
 <body class="">
 <div class="main-content">
-   <div class="container-fluid">
-    <div class="row mt-5">
-        <div class="col">
-          <div class="card bg-default shadow">
-              {% for data in all_game %}
-            <div class="card-header bg-transparent border-0">
-              <h3 class="text-white mb-0">{{ data.eventid__name }}</h3>
+    <div class="container-fluid">
+        <div class="row mt-5">
+            <div class="col">
+                <div class="card bg-default shadow">
+                    {% for event,ev_val in all_game.items %}
+                        <div class="card-header bg-transparent border-0">
+                            <h3 class="text-white mb-0">{{ event }}</h3>
+                        </div>
+                        {% for data in ev_val %}
+
+                            <div class="table-responsive">
+                                <table class="table align-items-center table-dark table-flush table-hover">
+                                    <thead class="thead-dark ">
+                                    <tr>
+                                        <th scope="col">{{ data.homename }}</th>
+
+                                        <th scope="col">{{ data.gametime|date:"m-d H:i" }}</th>
+
+                                        <th scope="col">{{ data.awayname }}</th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <thead class="thead-dark ">
+                                    <tr>
+                                        <th scope="col"></th>
+                                        <th scope="col"></th>
+                                        <th scope="col">全场</th>
+                                        <th scope="col"></th>
+                                        <th scope="col"></th>
+                                        <th scope="col">上半场</th>
+                                        <th scope="col"></th>
+                                        <th scope="col"></th>
+
+                                    </tr>
+                                    </thead>
+                                    <thead class="thead-dark">
+                                    <tr>
+                                        <th>独赢</th>
+                                        <th scope="col">胜</th>
+                                        <th scope="col">平</th>
+                                        <th scope="col">负</th>
+                                        <th scope="col">胜</th>
+                                        <th scope="col">平</th>
+                                        <th scope="col">负</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% if data.winodds and data.half_winodds %}
+                                        <tr>
+                                            <td>{{ data.winodds.win.0 }}</td>
+                                            <td>{{ data.winodds.draw.0 }}</td>
+                                            <td>{{ data.winodds.lose.0 }}</td>
+                                            <td>返还率</td>
+                                            <td>{{ data.half_winodds.win.0 }}</td>
+                                            <td>{{ data.half_winodds.draw.0 }}</td>
+                                            <td>{{ data.half_winodds.lose.0 }}</td>
+                                            <td>返还率</td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ data.winodds.win.1 }}</td>
+                                            <td>{{ data.winodds.draw.1 }}</td>
+                                            <td>{{ data.winodds.lose.1 }}</td>
+                                            <td></td>
+                                            <td>{{ data.half_winodds.win.1 }}</td>
+                                            <td>{{ data.half_winodds.draw.1 }}</td>
+                                            <td>{{ data.half_winodds.lose.1 }}</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td>{{ data.winodds.win.2 }}</td>
+                                            <td>{{ data.winodds.draw.2 }}</td>
+                                            <td>{{ data.winodds.lose.2 }}</td>
+                                            <td>{{ data.winodds.return_odds }}</td>
+                                            <td>{{ data.half_winodds.win.2 }}</td>
+                                            <td>{{ data.half_winodds.draw.2 }}</td>
+                                            <td>{{ data.half_winodds.lose.2 }}</td>
+                                            <td>{{ data.half_winodds.return_odds }}</td>
+                                        </tr>
+                                    {% elif data.winodds %}
+                                        <tr>
+                                            <td>{{ data.winodds.win.0 }}</td>
+                                            <td>{{ data.winodds.draw.0 }}</td>
+                                            <td>{{ data.winodds.lose.0 }}</td>
+                                            <td>返还率</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+
+                                            <td>{{ data.winodds.win.1 }}</td>
+                                            <td>{{ data.winodds.draw.1 }}</td>
+                                            <td>{{ data.winodds.lose.1 }}</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+
+                                            <td>{{ data.winodds.win.2 }}</td>
+                                            <td>{{ data.winodds.draw.2 }}</td>
+                                            <td>{{ data.winodds.lose.2 }}</td>
+                                            <td>{{ data.winodds.return_odds }}</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    {% else %}
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>{{ data.half_winodds.win.0 }}</td>
+                                            <td>{{ data.half_winodds.draw.0 }}</td>
+                                            <td>{{ data.half_winodds.lose.0 }}</td>
+                                            <td>返还率</td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>{{ data.half_winodds.win.1 }}</td>
+                                            <td>{{ data.half_winodds.draw.1 }}</td>
+                                            <td>{{ data.half_winodds.lose.1 }}</td>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>{{ data.half_winodds.win.2 }}</td>
+                                            <td>{{ data.half_winodds.draw.2 }}</td>
+                                            <td>{{ data.half_winodds.lose.2 }}</td>
+                                            <td>{{ data.half_winodds.return_odds }}</td>
+                                        </tr>
+
+                                    {% endif %}
+
+
+                                    {#                {% for solo in data.Companyodds__winalone %}#}
+                                    {#                <tr>#}
+                                    {#                    <td >{{ solo.companyid__name }}</td>#}
+                                    {#                    {% if solo.is_half %}#}
+                                    {#                    <td scope="col"></td>#}
+                                    {#                    <td scope="col"></td>#}
+                                    {#                    <td scope="col"></td>#}
+                                    {#                    <td scope="col">{{ solo.win }}</td>#}
+                                    {#                    <td scope="col">{{ solo.draw }}</td>#}
+                                    {#                    <td scope="col">{{ solo.lose }}</td>#}
+                                    {##}
+                                    {#                    {% else %}#}
+                                    {#                    <td scope="col">{{ solo.win }}</td>#}
+                                    {#                    <td scope="col">{{ solo.draw }}</td>#}
+                                    {#                    <td scope="col">{{ solo.lose }}</td>#}
+                                    {#                    <td scope="col"></td>#}
+                                    {#                    <td scope="col"></td>#}
+                                    {#                    <td scope="col"></td>#}
+                                    {#                    {% endif %}#}
+                                    {#                </tr>#}
+                                    {#                {% endfor %}#}
+                                    </tbody>
+                                    {#                <thead class="thead-dark">#}
+                                    {#                <th >让球</th>#}
+                                    {#                    <th  >左</th>#}
+                                    {#                    <th  >盘口</th>#}
+                                    {#                    <th  >右</th>#}
+                                    {#                    <th  >左</th>#}
+                                    {#                    <th  >盘口</th>#}
+                                    {#                    <th  >右</th>#}
+                                    {#            </thead>#}
+                                    {#                <tbody>#}
+                                    {#                {%  for let in data.Companyodds__letball  %}#}
+                                    {##}
+                                    {#                    <tr>#}
+                                    {#                    <td>{{ let.companyid__name }}</td>#}
+                                    {#                    {% if let.is_half %}#}
+                                    {#                    <td scope="col"></td>#}
+                                    {#                    <td scope="col"></td>#}
+                                    {#                    <td scope="col"></td>#}
+                                    {#                    <td  scope="col">{{ let.lbleft }}</td>#}
+                                    {#                    <td  scope="col">{{ let.Handicap }}</td>#}
+                                    {#                    <td  scope="col">{{ let.lbright }}</td>#}
+                                    {#                    {% else %}#}
+                                    {#                    <td scope="col" >{{ let.lbleft }}</td>#}
+                                    {#                    <td scope="col">{{ let.Handicap }}</td>#}
+                                    {#                    <td scope="col">{{ let.lbright }}</td>#}
+                                    {#                    <td scope="col"></td>#}
+                                    {#                    <td scope="col"></td>#}
+                                    {#                    <td scope="col"></td>#}
+                                    {#                    {% endif %}#}
+                                    {#                        </tr>#}
+                                    {#                {% endfor %}#}
+                                    {#                </tbody>#}
+                                    {#                <thead class="thead-dark">#}
+                                    {#                <th >大小</th>#}
+                                    {#                    <th >大</th>#}
+                                    {#                    <th >盘口</th>#}
+                                    {#                    <th >小</th>#}
+                                    {#                    <th >大</th>#}
+                                    {#                    <th >盘口</th>#}
+                                    {#                    <th >小</th>#}
+                                    {#            </thead>#}
+                                    {#                <tbody>#}
+                                    {#                {%  for big in data.Companyodds__bigsmall  %}#}
+                                    {#                    <tr>#}
+                                    {#                    <td>{{ big.companyid__name }}</td>#}
+                                    {#                    {% if big.is_half %}#}
+                                    {#                    <td scope="col"></td>#}
+                                    {#                    <td scope="col"></td>#}
+                                    {#                    <td scope="col"></td>#}
+                                    {#                    <td scope="col">{{ big.big }}</td>#}
+                                    {#                    <td scope="col">{{ big.handicap }}</td>#}
+                                    {#                    <td scope="col">{{ big.small }}</td>#}
+                                    {#                    {% else %}#}
+                                    {#                    <td scope="col">{{ big.big }}</td>#}
+                                    {#                    <td scope="col">{{ big.handicap }}</td>#}
+                                    {#                    <td scope="col">{{ big.small }}</td>#}
+                                    {#                    <td scope="col"></td>#}
+                                    {#                    <td scope="col"></td>#}
+                                    {#                    <td scope="col"></td>#}
+                                    {#                    {% endif %}#}
+                                    {#                    #}
+                                    {#                    </tr>#}
+                                    {#                {% endfor %}#}
+                                    {#                #}
+                                    {#                </tbody>#}
+                                </table>
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
             </div>
-            <div class="table-responsive">
-              <table class="table align-items-center table-dark table-flush table-hover">
-                <thead class="thead-dark ">
-                  <tr>
-
-
-                    <th scope="col">{{ data.homename }}</th>
-
-                    <th scope="col">{{ data.gametime|date:"m-d H:i" }}</th>
-
-                    <th scope="col">{{ data.awayname }}</th>
-
-                  </tr>
-                </thead>
-                <thead class="thead-dark ">
-                  <tr>
-                      <th scope="col" ></th>
-                      <th scope="col" ></th>
-                      <th scope="col" >全场</th>
-                      <th scope="col" ></th>
-                      <th scope="col" ></th>
-                      <th scope="col" >上半场</th>
-                      <th scope="col" ></th>
-
-                  </tr>
-                  </thead>
-                <thead class="thead-dark">
-                  <tr>
-                    <th >独赢</th>
-                    <th scope="col">胜</th>
-                    <th scope="col">平</th>
-                    <th scope="col">负</th>
-                    <th scope="col">胜</th>
-                    <th scope="col">平</th>
-                    <th scope="col">负</th>
-                  </tr>
-                </thead>
-                <tbody>
-                {%   if data.winodds %}
-                    <tr>
-                        <td>{{ data.winodds.win.0 }}</td>
-                        <td>{{ data.winodds.draw.0 }}</td>
-                        <td>{{ data.winodds.lose.0 }}</td>
-                        <td>返还率</td>
-                    </tr>
-                    <tr>
-                        <td>{{ data.winodds.win.1 }}</td>
-                        <td>{{ data.winodds.draw.1 }}</td>
-                        <td>{{ data.winodds.lose.1 }}</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>{{ data.winodds.win.2 }}</td>
-                        <td>{{ data.winodds.draw.2 }}</td>
-                        <td>{{ data.winodds.lose.2 }}</td>
-                        <td>{{ data.winodds.return_odds }}</td>
-                    </tr>
-
-                {% endif %}
-{#                {% for solo in data.Companyodds__winalone %}#}
-{#                <tr>#}
-{#                    <td >{{ solo.companyid__name }}</td>#}
-{#                    {% if solo.is_half %}#}
-{#                    <td scope="col"></td>#}
-{#                    <td scope="col"></td>#}
-{#                    <td scope="col"></td>#}
-{#                    <td scope="col">{{ solo.win }}</td>#}
-{#                    <td scope="col">{{ solo.draw }}</td>#}
-{#                    <td scope="col">{{ solo.lose }}</td>#}
-{##}
-{#                    {% else %}#}
-{#                    <td scope="col">{{ solo.win }}</td>#}
-{#                    <td scope="col">{{ solo.draw }}</td>#}
-{#                    <td scope="col">{{ solo.lose }}</td>#}
-{#                    <td scope="col"></td>#}
-{#                    <td scope="col"></td>#}
-{#                    <td scope="col"></td>#}
-{#                    {% endif %}#}
-{#                </tr>#}
-{#                {% endfor %}#}
-                </tbody>
-{#                <thead class="thead-dark">#}
-{#                <th >让球</th>#}
-{#                    <th  >左</th>#}
-{#                    <th  >盘口</th>#}
-{#                    <th  >右</th>#}
-{#                    <th  >左</th>#}
-{#                    <th  >盘口</th>#}
-{#                    <th  >右</th>#}
-{#            </thead>#}
-{#                <tbody>#}
-{#                {%  for let in data.Companyodds__letball  %}#}
-{##}
-{#                    <tr>#}
-{#                    <td>{{ let.companyid__name }}</td>#}
-{#                    {% if let.is_half %}#}
-{#                    <td scope="col"></td>#}
-{#                    <td scope="col"></td>#}
-{#                    <td scope="col"></td>#}
-{#                    <td  scope="col">{{ let.lbleft }}</td>#}
-{#                    <td  scope="col">{{ let.Handicap }}</td>#}
-{#                    <td  scope="col">{{ let.lbright }}</td>#}
-{#                    {% else %}#}
-{#                    <td scope="col" >{{ let.lbleft }}</td>#}
-{#                    <td scope="col">{{ let.Handicap }}</td>#}
-{#                    <td scope="col">{{ let.lbright }}</td>#}
-{#                    <td scope="col"></td>#}
-{#                    <td scope="col"></td>#}
-{#                    <td scope="col"></td>#}
-{#                    {% endif %}#}
-{#                        </tr>#}
-{#                {% endfor %}#}
-{#                </tbody>#}
-{#                <thead class="thead-dark">#}
-{#                <th >大小</th>#}
-{#                    <th >大</th>#}
-{#                    <th >盘口</th>#}
-{#                    <th >小</th>#}
-{#                    <th >大</th>#}
-{#                    <th >盘口</th>#}
-{#                    <th >小</th>#}
-{#            </thead>#}
-{#                <tbody>#}
-{#                {%  for big in data.Companyodds__bigsmall  %}#}
-{#                    <tr>#}
-{#                    <td>{{ big.companyid__name }}</td>#}
-{#                    {% if big.is_half %}#}
-{#                    <td scope="col"></td>#}
-{#                    <td scope="col"></td>#}
-{#                    <td scope="col"></td>#}
-{#                    <td scope="col">{{ big.big }}</td>#}
-{#                    <td scope="col">{{ big.handicap }}</td>#}
-{#                    <td scope="col">{{ big.small }}</td>#}
-{#                    {% else %}#}
-{#                    <td scope="col">{{ big.big }}</td>#}
-{#                    <td scope="col">{{ big.handicap }}</td>#}
-{#                    <td scope="col">{{ big.small }}</td>#}
-{#                    <td scope="col"></td>#}
-{#                    <td scope="col"></td>#}
-{#                    <td scope="col"></td>#}
-{#                    {% endif %}#}
-{#                    #}
-{#                    </tr>#}
-{#                {% endfor %}#}
-{#                #}
-{#                </tbody>#}
-              </table>
-            </div>
-              {% endfor %}
-          </div>
         </div>
     </div>
 </div>
-</div>
 
-    <!--   Core   -->
-  <script src="{% static 'home/js/plugins/jquery/dist/jquery.min.js' %}"></script>
-  <script src="{% static 'home/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
-  <!--   Optional JS   -->
-  <!--   Argon JS   -->
-  <script src="/static/home/js/argon-dashboard.min.js?v=1.1.2"></script>
-  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
-  <script>
+<!--   Core   -->
+<script src="{% static 'home/js/plugins/jquery/dist/jquery.min.js' %}"></script>
+<script src="{% static 'home/js/plugins/bootstrap/dist/js/bootstrap.bundle.min.js' %}"></script>
+<!--   Optional JS   -->
+<!--   Argon JS   -->
+<script src="/static/home/js/argon-dashboard.min.js?v=1.1.2"></script>
+<script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+<script>
     window.TrackJS &&
-      TrackJS.install({
+    TrackJS.install({
         token: "ee6fab19c5a04ac1a32a645abde4613a",
         application: "argon-dashboard-free"
-      });
-  </script>
+    });
+</script>
 </body>
 </html>
