@@ -2,7 +2,7 @@ from django.shortcuts import render, HttpResponse, redirect, reverse
 from django.utils import timezone
 from django.db.models import Max, Min
 
-import time, datetime
+import time, datetime, xlrd
 from web import models
 
 
@@ -40,35 +40,65 @@ def save_excel(path):
         models.Teaminfo.objects.create(name=li[0], detaild=detaild)
 
 
-def bigsmall(obj, is_half=0):
-    pass
+def workout(a, b, c=None):
+    if c == None:
+        return round(a * b / (a + b), 4)
+    else:
+        return round(a * b * c / (a * b + a * c + b * c), 4)
 
 
-def letball(obj, is_half=0,handicap=None):
+def bigsmall(obj, is_half=0, handicap=None):
     max_odds = {}
 
-    if handicap!=None:
-        data_all = models.Letball.objects.filter(gameinfo=obj['id'], is_half=is_half,Handicap=handicap).values('companyid__name','gameinfo__homename','gameinfo__awayname', 'lbleft','Handicap','lbright')
+    if handicap != None:
+        data_all = models.Bigsmall.objects.filter(gameinfo=obj['id'], is_half=is_half, Handicap=handicap).values(
+            'companyid__name', 'gameinfo__homename', 'gameinfo__awayname', 'big', 'Handicap', 'small')
         if any(data_all):
-            odds={}
-            max_lbleft=data_all.order_by('lbleft').first()
-            max_lbright=data_all.order_by('lbright').first()
-            odds['left']=max_lbleft
-            print(odds)
+            odds = {}
+            max_big = data_all.order_by('big').first()
+            max_small = data_all.order_by('small').first()
+            odds['big'] = max_big
+            odds['small'] = max_small
+            odds['return_odds'] = workout(max_big['big'], max_small['small'])
             return odds
         else:
             return
     else:
         data = models.Letball.objects.filter(gameinfo=obj['id'], is_half=is_half)
-        li=list(set(data.values_list('Handicap')))
+        li = list(set(data.values_list('Handicap')))
         if li:
             for i in li:
-                max_odds['handicap']=letball(obj,is_half=is_half,handicap=i[0])
+                max_odds['handicap'] = letball(obj, is_half=is_half, handicap=i[0])
         else:
             return
     return max_odds
-    # if any(data_all):
-    #     print(list(set(data_all)))
+
+
+def letball(obj, is_half=0, handicap=None):
+    max_odds = {}
+
+    if handicap != None:
+        data_all = models.Letball.objects.filter(gameinfo=obj['id'], is_half=is_half, Handicap=handicap).values(
+            'companyid__name', 'gameinfo__homename', 'gameinfo__awayname', 'lbleft', 'Handicap', 'lbright')
+        if any(data_all):
+            odds = {}
+            max_lbleft = data_all.order_by('lbleft').first()
+            max_lbright = data_all.order_by('lbright').first()
+            odds['left'] = max_lbleft
+            odds['right'] = max_lbright
+            odds['return_odds'] = workout(max_lbleft['lbleft'], max_lbright['lbright'])
+            return odds
+        else:
+            return
+    else:
+        data = models.Letball.objects.filter(gameinfo=obj['id'], is_half=is_half)
+        li = list(set(data.values_list('Handicap')))
+        if li:
+            for i in li:
+                max_odds['handicap'] = letball(obj, is_half=is_half, handicap=i[0])
+        else:
+            return
+    return max_odds
 
 
 def winodds(obj, is_half=0):
@@ -84,10 +114,7 @@ def winodds(obj, is_half=0):
         max_odds['win'] = [max_win['companyid__name'], max_win['gameinfo__homename'], max_win['win']]
         max_odds['draw'] = [max_draw['companyid__name'], '平局', max_draw['draw']]
         max_odds['lose'] = [max_lose['companyid__name'], max_win['gameinfo__awayname'], max_lose['lose']]
-        max_odds['return_odds'] = max_win['win'] * max_draw['draw'] * max_lose['lose'] / (
-                max_win['win'] * max_draw['draw'] + max_draw['draw'] * max_lose['lose'] + max_win['win'] * max_lose[
-            'lose'])
-        max_odds['return_odds'] = round(max_odds['return_odds'], 4)
+        max_odds['return_odds'] = workout(max_win['win'], max_draw['draw'], max_lose['lose'])
     else:
         return
     return max_odds
@@ -111,18 +138,27 @@ def odds_list(request):
                                                                                                   'Companyodds__name')
         all_game[all['name']] = all_gameinfo
         for i in all_gameinfo:
-            # i['Companyodds__winalone'] = models.Winalone.objects.filter(gameinfo=i['id']).values('win', 'draw', 'lose',
-            #                                                                                      'is_half',
-            #                                                                                      'companyid__name')
-            # i['Companyodds__bigsmall'] = models.Bigsmall.objects.filter(gameinfo=i['id']).values('big', 'handicap', 'small',
-            #                                                                                      'is_half',
-            #                                                                                      'companyid__name')
-            # i['Companyodds__letball'] = models.Letball.objects.filter(gameinfo=i['id']).values('lbleft', 'Handicap',
-            #                                                                                    'lbright', 'is_half',
-            #
-            #                                                                                   'companyid__name')
-            i['letball'] = letball(i)
             i['winodds'] = winodds(i)
             i['half_winodds'] = winodds(i, is_half=1)
+            i['letball'] = letball(i)
+            i['half_letball'] = letball(i, is_half=1)
+            i['bigsmall'] = bigsmall(i)
+            i['half_bigsmall'] = bigsmall(i, is_half=1)
+            if i['letball']!=None:
+                    print('让球',i['letball']['handicap']['return_odds'])
+                    if i['letball']['handicap']['return_odds']>=1:
+                        print(i)
+            if i['half_letball']!=None:
+                if i['half_letball']['handicap']['return_odds']>=1:
+                    print(i)
+
+            if i['bigsmall']!=None :
+                print('大小',i['bigsmall']['handicap']['return_odds'])
+                if i['bigsmall']['handicap']['return_odds']>=1:
+                    print(i)
+
+            if i['half_bigsmall']!=None :
+                if i['half_bigsmall']['handicap']['return_odds']>=1:
+                    print(i)
 
     return render(request, 'odds_list.html', {'all_game': all_game})

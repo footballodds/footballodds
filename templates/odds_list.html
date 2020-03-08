@@ -69,6 +69,7 @@
                                         <th scope="col">胜</th>
                                         <th scope="col">平</th>
                                         <th scope="col">负</th>
+                                        <th scope="col"></th>
                                         <th scope="col">胜</th>
                                         <th scope="col">平</th>
                                         <th scope="col">负</th>
@@ -78,6 +79,7 @@
                                     <tbody>
                                     {% if data.winodds and data.half_winodds %}
                                         <tr>
+                                            <th scope="col"></th>
                                             <td>{{ data.winodds.win.0 }}</td>
                                             <td>{{ data.winodds.draw.0 }}</td>
                                             <td>{{ data.winodds.lose.0 }}</td>
@@ -168,38 +170,16 @@
 
                                     {% endif %}
 
-
-                                    {#                {% for solo in data.Companyodds__winalone %}#}
-                                    {#                <tr>#}
-                                    {#                    <td >{{ solo.companyid__name }}</td>#}
-                                    {#                    {% if solo.is_half %}#}
-                                    {#                    <td scope="col"></td>#}
-                                    {#                    <td scope="col"></td>#}
-                                    {#                    <td scope="col"></td>#}
-                                    {#                    <td scope="col">{{ solo.win }}</td>#}
-                                    {#                    <td scope="col">{{ solo.draw }}</td>#}
-                                    {#                    <td scope="col">{{ solo.lose }}</td>#}
-                                    {##}
-                                    {#                    {% else %}#}
-                                    {#                    <td scope="col">{{ solo.win }}</td>#}
-                                    {#                    <td scope="col">{{ solo.draw }}</td>#}
-                                    {#                    <td scope="col">{{ solo.lose }}</td>#}
-                                    {#                    <td scope="col"></td>#}
-                                    {#                    <td scope="col"></td>#}
-                                    {#                    <td scope="col"></td>#}
-                                    {#                    {% endif %}#}
-                                    {#                </tr>#}
-                                    {#                {% endfor %}#}
-                                    </tbody>
-                                    {#                <thead class="thead-dark">#}
-                                    {#                <th >让球</th>#}
-                                    {#                    <th  >左</th>#}
-                                    {#                    <th  >盘口</th>#}
-                                    {#                    <th  >右</th>#}
-                                    {#                    <th  >左</th>#}
-                                    {#                    <th  >盘口</th>#}
-                                    {#                    <th  >右</th>#}
-                                    {#            </thead>#}
+{#                                    </tbody>#}
+{#                                    <thead class="thead-dark">#}
+{#                                    <th>让球</th>#}
+{#                                    <th>左</th>#}
+{#                                    <th>盘口</th>#}
+{#                                    <th>右</th>#}
+{#                                    <th>左</th>#}
+{#                                    <th>盘口</th>#}
+{#                                    <th>右</th>#}
+{#                                    </thead>#}
                                     {#                <tbody>#}
                                     {#                {%  for let in data.Companyodds__letball  %}#}
                                     {##}

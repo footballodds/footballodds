@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ae8c2b95-5d79-45c7-93a6-fc7dc9da9b4d" name="Default Changelist" comment="html">
-      <change beforePath="$PROJECT_DIR$/.idea/footballodds.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/footballodds.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/football/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/football/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/odds_list.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/odds_list.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/web/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/web/views.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -42,8 +38,14 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/web/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2511">
+            <state relative-caret-position="800">
               <caret line="96" column="68" selection-start-line="96" selection-start-column="68" selection-end-line="96" selection-end-column="68" />
+              <folding>
+                <element signature="e#2519#3265#0" />
+                <element signature="e#3301#4105#0" />
+                <element signature="e#4141#4461#0" />
+                <element signature="e#4498#5328#0" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -51,8 +53,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/football/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="675">
-              <caret line="126" lean-forward="true" selection-start-line="126" selection-end-line="126" />
+            <state relative-caret-position="4536">
+              <caret line="126" selection-start-line="126" selection-end-line="126" />
             </state>
           </provider>
         </entry>
@@ -60,12 +62,46 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/web/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1002">
-              <caret line="128" lean-forward="true" selection-start-line="128" selection-end-line="128" />
+            <state relative-caret-position="12">
+              <caret line="155" column="25" selection-start-line="155" selection-start-column="25" selection-end-line="155" selection-end-column="25" />
               <folding>
                 <element signature="e#0#68#0" expanded="true" />
-                <element signature="e#206#1070#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/apps.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="144">
+              <caret line="4" column="16" selection-start-line="4" selection-start-column="16" selection-end-line="4" selection-end-column="16" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/admin.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="360">
+              <caret line="11" selection-start-line="11" selection-end-line="11" />
+              <folding>
+                <element signature="e#0#32#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/web/__init__.py">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/football/__init__.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="36">
+              <caret line="1" column="28" selection-start-line="1" selection-start-column="28" selection-end-line="1" selection-end-column="28" />
             </state>
           </provider>
         </entry>
@@ -73,7 +109,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/data/post_spider.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4428">
+            <state relative-caret-position="1160">
               <caret line="124" column="68" selection-start-line="124" selection-start-column="68" selection-end-line="124" selection-end-column="68" />
               <folding>
                 <element signature="e#0#43#0" expanded="true" />
@@ -85,7 +121,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/data/read_excel.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="531">
+            <state relative-caret-position="747">
               <caret line="36" selection-start-line="36" selection-end-line="39" />
             </state>
           </provider>
@@ -94,8 +130,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/odds_list.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="70" column="62" selection-start-line="70" selection-start-column="62" selection-end-line="70" selection-end-column="62" />
+            <state relative-caret-position="513">
+              <caret line="184" column="40" selection-start-line="184" selection-start-column="40" selection-end-line="184" selection-end-column="40" />
             </state>
           </provider>
         </entry>
@@ -135,9 +171,9 @@
         <option value="$PROJECT_DIR$/data/read_excel.py" />
         <option value="$PROJECT_DIR$/data/get_excel.py" />
         <option value="$PROJECT_DIR$/data/post_spider.py" />
-        <option value="$PROJECT_DIR$/templates/odds_list.html" />
         <option value="$PROJECT_DIR$/football/settings.py" />
         <option value="$PROJECT_DIR$/web/models.py" />
+        <option value="$PROJECT_DIR$/templates/odds_list.html" />
         <option value="$PROJECT_DIR$/web/views.py" />
       </list>
     </option>
@@ -164,7 +200,7 @@
             <path>
               <item name="footballodds" type="b2602c69:ProjectViewProjectNode" />
               <item name="footballodds" type="462c0819:PsiDirectoryNode" />
-              <item name="web" type="462c0819:PsiDirectoryNode" />
+              <item name="football" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -351,11 +387,13 @@
       <workItem from="1583201876266" duration="10231000" />
       <workItem from="1583240439366" duration="8353000" />
       <workItem from="1583466449916" duration="18068000" />
+      <workItem from="1583593310823" duration="4420000" />
+      <workItem from="1583636097141" duration="2428000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="129596000" />
+    <option name="totallyTimeSpent" value="136444000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -368,14 +406,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="2576" height="1416" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1299682" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13155803" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3295325" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32215288" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.90639627" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.33541343" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -438,13 +475,6 @@
     <entry file="file://$PROJECT_DIR$/web/migrations/__init__.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/football/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="29">
-          <caret line="1" column="28" selection-start-line="1" selection-start-column="28" selection-end-line="1" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="das://e6e77de2-bcba-43ad-acc3-c05c01987691/schema/main/table/rbac_role_permissions.sql" />
     <entry file="file://$PROJECT_DIR$/football/urls.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -465,23 +495,6 @@
     <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python38/Lib/site-packages/django/db/models/fields/__init__.py" />
     <entry file="file://D:/Program Files/Python37/Lib/site-packages/django/db/models/query.py" />
     <entry file="file://$USER_HOME$/Desktop/post_spider.py" />
-    <entry file="file://$PROJECT_DIR$/web/apps.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="4" column="16" selection-start-line="4" selection-start-column="16" selection-end-line="4" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/admin.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="11" selection-start-line="11" selection-end-line="11" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/data/get_excel.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="263">
@@ -505,9 +518,50 @@
     <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python38/Lib/site-packages/django/db/models/query.py" />
     <entry file="file://$USER_HOME$/AppData/Local/Programs/Python/Python38/Lib/site-packages/django/core/handlers/base.py" />
     <entry file="file://$USER_HOME$/Desktop/test/post_spider.py" />
+    <entry file="file://$PROJECT_DIR$/football/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4536">
+          <caret line="126" selection-start-line="126" selection-end-line="126" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/apps.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="4" column="16" selection-start-line="4" selection-start-column="16" selection-end-line="4" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/admin.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/football/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="1" column="28" selection-start-line="1" selection-start-column="28" selection-end-line="1" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/data/read_excel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="747">
+          <caret line="36" selection-start-line="36" selection-end-line="39" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/data/post_spider.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4428">
+        <state relative-caret-position="1160">
           <caret line="124" column="68" selection-start-line="124" selection-start-column="68" selection-end-line="124" selection-end-column="68" />
           <folding>
             <element signature="e#0#43#0" expanded="true" />
@@ -517,39 +571,30 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/odds_list.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="70" column="62" selection-start-line="70" selection-start-column="62" selection-end-line="70" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/read_excel.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="531">
-          <caret line="36" selection-start-line="36" selection-end-line="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/football/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="675">
-          <caret line="126" lean-forward="true" selection-start-line="126" selection-end-line="126" />
+        <state relative-caret-position="513">
+          <caret line="184" column="40" selection-start-line="184" selection-start-column="40" selection-end-line="184" selection-end-column="40" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2511">
+        <state relative-caret-position="800">
           <caret line="96" column="68" selection-start-line="96" selection-start-column="68" selection-end-line="96" selection-end-column="68" />
+          <folding>
+            <element signature="e#2519#3265#0" />
+            <element signature="e#3301#4105#0" />
+            <element signature="e#4141#4461#0" />
+            <element signature="e#4498#5328#0" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1002">
-          <caret line="128" lean-forward="true" selection-start-line="128" selection-end-line="128" />
+        <state relative-caret-position="12">
+          <caret line="155" column="25" selection-start-line="155" selection-start-column="25" selection-end-line="155" selection-end-column="25" />
           <folding>
             <element signature="e#0#68#0" expanded="true" />
-            <element signature="e#206#1070#0" />
           </folding>
         </state>
       </provider>
