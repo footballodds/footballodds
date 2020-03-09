@@ -1,8 +1,8 @@
 from django.shortcuts import render, HttpResponse, redirect, reverse
 from django.utils import timezone
 from django.db.models import Max, Min
-
-import time, datetime, xlrd
+from multiprocessing import Pool
+import time, datetime,xlrd
 from web import models
 
 
@@ -137,13 +137,20 @@ def odds_list(request):
                                                                                                   'eventid__name',
                                                                                                   'Companyodds__name')
         all_game[all['name']] = all_gameinfo
+        fun_list=['winodds','letball','bigsmall']
+
         for i in all_gameinfo:
-            i['winodds'] = winodds(i)
-            i['half_winodds'] = winodds(i, is_half=1)
-            i['letball'] = letball(i)
-            i['half_letball'] = letball(i, is_half=1)
-            i['bigsmall'] = bigsmall(i)
-            i['half_bigsmall'] = bigsmall(i, is_half=1)
+
+            for fun in range(len(fun_list)):
+                i[fun_list[fun]]=eval(fun_list[fun])(i)
+                i['half_'+fun_list[fun]]=eval(fun_list[fun])(i,1)
+
+            # i['winodds'] = winodds(i)
+            # i['half_winodds'] = winodds(i, is_half=1)
+            # i['letball'] = letball(i)
+            # i['half_letball'] = letball(i, is_half=1)
+            # i['bigsmall'] = bigsmall(i)
+            # i['half_bigsmall'] = bigsmall(i, is_half=1)
             if i['letball']!=None:
                     print('让球',i['letball']['handicap']['return_odds'])
                     if i['letball']['handicap']['return_odds']>=1:
