@@ -2,7 +2,7 @@ from django.shortcuts import render, HttpResponse, redirect, reverse
 from django.utils import timezone
 from django.db.models import Max, Min
 from multiprocessing import Pool
-import time, datetime,xlrd
+import time, datetime, xlrd
 from web import models
 
 
@@ -128,44 +128,39 @@ def odds_list(request):
     # 联赛信息：
     all_event = models.Eventinfo.objects.all().values('id', 'name')
     all_game = {}
-    now = timezone.now()
+    now = timezone.now().strftime('%Y-%m-%d') + " 00:00:00"
+    tomorrow_now = (timezone.now() + timezone.timedelta(days=1)).strftime('%Y-%m-%d') + " 00:00:00"
     for all in all_event:
         # 队伍信息
-        all_gameinfo = models.Gameinfo.objects.filter(eventid=all['id'], gametime__gt=now).values('id', 'homename',
-                                                                                                  'awayname',
-                                                                                                  'gametime',
-                                                                                                  'eventid__name',
-                                                                                                  'Companyodds__name')
+        all_gameinfo = models.Gameinfo.objects.filter(eventid=all['id'], gametime__gt=now,
+                                                      gametime__lte=tomorrow_now).values('id', 'homename',
+                                                                                         'awayname',
+                                                                                         'gametime',
+                                                                                         'eventid__name',
+                                                                                         'Companyodds__name')
         all_game[all['name']] = all_gameinfo
-        fun_list=['winodds','letball','bigsmall']
+        fun_list = ['winodds', 'letball', 'bigsmall']
 
         for i in all_gameinfo:
 
             for fun in range(len(fun_list)):
-                i[fun_list[fun]]=eval(fun_list[fun])(i)
-                i['half_'+fun_list[fun]]=eval(fun_list[fun])(i,1)
-
-            # i['winodds'] = winodds(i)
-            # i['half_winodds'] = winodds(i, is_half=1)
-            # i['letball'] = letball(i)
-            # i['half_letball'] = letball(i, is_half=1)
-            # i['bigsmall'] = bigsmall(i)
-            # i['half_bigsmall'] = bigsmall(i, is_half=1)
-            if i['letball']!=None:
-                    print('让球',i['letball']['handicap']['return_odds'])
-                    if i['letball']['handicap']['return_odds']>=1:
+                i[fun_list[fun]] = eval(fun_list[fun])(i)
+                i['half_' + fun_list[fun]] = eval(fun_list[fun])(i, 1)
+                if 'letball' in i and i['letball']!= None:
+                    print('让球', i['letball']['handicap']['return_odds'])
+                    if i['letball']['handicap']['return_odds'] >= 1:
                         print(i)
-            if i['half_letball']!=None:
-                if i['half_letball']['handicap']['return_odds']>=1:
-                    print(i)
+                if 'half_letball' in i and i['half_letball'] != None:
+                    if i['half_letball']['handicap']['return_odds'] >= 1:
+                        print(i)
 
-            if i['bigsmall']!=None :
-                print('大小',i['bigsmall']['handicap']['return_odds'])
-                if i['bigsmall']['handicap']['return_odds']>=1:
-                    print(i)
+                if 'bigsmall' in i and i['bigsmall'] != None:
+                    print('大小', i['bigsmall']['handicap']['return_odds'])
+                    if i['bigsmall']['handicap']['return_odds'] >= 1:
+                        print(i)
 
-            if i['half_bigsmall']!=None :
-                if i['half_bigsmall']['handicap']['return_odds']>=1:
-                    print(i)
+                if 'half_bigsmall' in i and i['half_bigsmall'] != None:
+                    if i['half_bigsmall']['handicap']['return_odds'] >= 1:
+                        print(i)
 
     return render(request, 'odds_list.html', {'all_game': all_game})
